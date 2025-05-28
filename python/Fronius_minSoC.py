@@ -24,20 +24,6 @@ battmode=3      # 1 charge-limit, 2 discharge-limit, 3 both limits
 device = ModbusTcpClient(host = "172.16.0.171", port = 502, timeout=1) # Adjust as needed
 device.connect()
 
-def check_args():
-    # wurden 1 Parameter mit angegeben ?
-    if len(sys.argv) == 2:
-        # parameter zuordnen
-        battlow=sys.argv[1]
-    else:
-        print("bitte so aufrufen:")
-        print("  python3 "+sys.argv[0]+ " 50")
-        print("um den minSoC bei 50% zu halten")
-        print("setze jetzt Default = 10%")
-        #print("")
-        #defaultwerte
-        battlow=10      
-
 
 def read_reg(register,descr,remark):
     sleep(0.5) # Time in seconds
@@ -47,10 +33,22 @@ def read_reg(register,descr,remark):
     else:
         decoder = BinaryPayloadDecoder.fromRegisters(result.registers, byteorder=Endian.BIG, wordorder=Endian.BIG)
         result= decoder.decode_16bit_uint()
-        print(f'{register} {descr} {remark} {result/10} %') 
+        print(f'{register} {descr} {remark} {result/100} %') 
 
-#Argumente checken
-check_args()
+# wurden 1 Parameter mit angegeben ?
+if len(sys.argv) == 2:
+    # parameter zuordnen
+    battlow=sys.argv[1]
+    print(battlow)
+else:
+    print("bitte so aufrufen:")
+    print("  python3 "+sys.argv[0]+ " 50")
+    print("um den minSoC bei 50% zu halten")
+    print("setze jetzt Default = 10%")
+    #print("")
+    #defaultwerte
+    battlow=50
+
 
 # Parameterliste ausgeben:
 print(f'battlow={battlow}      # Untergrenze SoC min')
