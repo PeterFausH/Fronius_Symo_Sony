@@ -8,6 +8,7 @@ This is the setup we are talking about:
 ## purpose
 
 usually the solar generation does not fit the energy consuption. That's why we use batteries. Unfortunatelly the batteries are charged with first power delivered from sun, are fully charged at 11am and exactly if energy consumption is low, our solar panels deliver to the grid. This can be modified if we first deliver sun gains to the grid and charge batteries if energy consumption in the grid is low. 
+
 So let's reduce the charging rate for batteries in the early morning and increase charging rate at noon. Then, depending on sun hours, we deliver to the grid in the morning, our battery will be fully charged at 4pm and we deliver solar power if energy consuption is increasing.
 ![solar-generation_energy-usage](media/solar-generation_energy-usage.png)
 
@@ -78,7 +79,8 @@ All Watts deliverd from PV above 165W are fed into the grid.
 ```
 ### forced charging from grid in cheap hours
 
-using dynamic prices for your energy, like aWATTar or tibber, you may call Fronius_minSoC.py for a few hours with parameter 90
+expecting thunderstorms and other reason for outage prepare filling up your battery. 
+Or, using dynamic prices for your energy, like aWATTar or tibber, you may call Fronius_minSoC.py for a few hours with parameter 90
 this will charge your battery from grid upto 90% SoC. At ending of cheap hours call it with parameter 10 to allow discharging of battery
 
 ```sh
