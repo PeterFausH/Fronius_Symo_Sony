@@ -39,14 +39,14 @@ descr="ChaState"
 soc=read_reg(register,descr," aktueller SoC")
 soc=soc/100
 
-if soc >= 98:
-    chargerate=0
+if soc >= 98: 
+    chargerate=0  # set to zero to stop charging
 elif soc >= 90:
-    chargerate=20
+    chargerate=20 # charge very slow
 elif soc >= 80:
-    chargerate=50
+    chargerate=50 # reduce charge rate
 else:
-    chargerate=100
+    chargerate=100 # allow full chargerate 
 
 # maximale Speicher-Rate in Prozent einstellen
 register=40327
@@ -61,6 +61,10 @@ device.write_register(register-1, chargerate*100, slave = 1)
 read_reg(register,descr," neue Speicher-Rate ist")
 print("---------------------")
 
-#Und das war’s auch schon.
+
+#Und das war’s auch schon. Zum Schluss schließen wir noch die Verbindung und sind fertig!
 device.close()
+
+#Der Effekt ist nach ein paar Sekunden im Wechselrichter-Webinterface oder Solarweb zu sehen.
+
 
