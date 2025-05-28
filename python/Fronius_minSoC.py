@@ -38,8 +38,8 @@ def read_reg(register,descr,remark):
 # wurden 1 Parameter mit angegeben ?
 if len(sys.argv) == 2:
     # parameter zuordnen
-    battlow=sys.argv[1]
-    print(battlow)
+    battlow=int(sys.argv[1])
+    #print(battlow)
 else:
     print("bitte so aufrufen:")
     print("  python3 "+sys.argv[0]+ " 50")
