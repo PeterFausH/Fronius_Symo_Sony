@@ -32,27 +32,25 @@ battmode=3      # 1 charge-limit, 2 discharge-limit, 3 both limits
 
 device = ModbusTcpClient(host = "172.16.0.171", port = 502, timeout=1) # Adjust as needed
 device.connect()
-
-
-def check_args():
-    # wurden 4 Parameter mit angegeben ?
-    if len(sys.argv) == 5:
-        # parameter zuordnen
-        battlow=sys.argv[1]
-        chargerate=sys.argv[2]
-        deliverrate=sys.argv[3]
-        battmode=sys.argv[4]
-    else:
-        print("bitte so aufrufen:")
-        print("  python3 FroniusBatterie.py 10 100 100 3")
-        print("")
-        print("")
-        print("")
-        #defaultwerte
-        battlow=10      
-        chargerate=100  
-        deliverrate=100 
-        battmode=3      
+       
+# wurden 4 Parameter mit angegeben ?
+if len(sys.argv) == 5:
+    # parameter zuordnen
+    battlow=int(sys.argv[1])
+    chargerate=int(sys.argv[2])
+    deliverrate=int(sys.argv[3])
+    battmode=int(sys.argv[4])
+else:
+    print("bitte so aufrufen:")
+    print("  python3 FroniusBatterie.py 10 100 100 3")
+    print("")
+    print("")
+    print("")
+    #defaultwerte
+    battlow=10      
+    chargerate=100  
+    deliverrate=100 
+    battmode=3        
 
 
 def read_reg(register,descr,remark):
@@ -65,8 +63,6 @@ def read_reg(register,descr,remark):
         result= decoder.decode_16bit_uint()
         print(f'{register}: {result} - {descr} {remark}') 
 
-#Argumente checken
-check_args()
 
 # Parameterliste ausgeben:
 print(f'battlow={battlow}      # Untergrenze SoC min')
